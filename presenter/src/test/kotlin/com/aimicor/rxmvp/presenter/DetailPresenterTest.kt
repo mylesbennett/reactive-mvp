@@ -75,7 +75,7 @@ class DetailPresenterTest {
 
         val postDetails = postDetailsCaptor.firstValue
         assertEquals("body3", postDetails.body)
-        assertEquals(3, postDetails.comments)
+        assertEquals("3", postDetails.comments)
         assertEquals("title3", postDetails.title)
         assertEquals("username", postDetails.user)
     }

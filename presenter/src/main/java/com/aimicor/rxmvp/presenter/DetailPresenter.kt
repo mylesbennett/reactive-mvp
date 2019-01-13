@@ -19,14 +19,12 @@ class DetailPresenter(override val kodein: Kodein = com.aimicor.rxmvp.kodein) :
                 .subscribeOn(Schedulers.io())
                 .map { posts -> posts[0] }
                 .flatMap { post ->
-                    Observable.zip(
+                    Observable.zip<String, String, String, String, PostDetails>(
                         Observable.just(post.title),
                         Observable.just(post.body),
                         apiService.getUser(post.userId).subscribeOn(Schedulers.io()).map { it[0].username },
-                        apiService.getComments(post.id).subscribeOn(Schedulers.io()).map { it.size },
-                        Function4<String?, String?, String?, Int, PostDetails> { title, body, name, comments ->
-                            PostDetails(title, body, name, comments)
-                        }
+                        apiService.getComments(post.id).subscribeOn(Schedulers.io()).map { it.size.toString() },
+                        Function4 { title, body, name, comments -> PostDetails(title, body, name, comments) }
                     )
                 }
                 .observeOn(view.scheduler)

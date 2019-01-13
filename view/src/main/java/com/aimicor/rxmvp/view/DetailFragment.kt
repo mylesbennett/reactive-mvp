@@ -24,7 +24,7 @@ class DetailFragment : Fragment(), DetailView, PresenterAware, DefaultScheduler 
         title.text = details.title
         body.text = details.body
         username.text = details.user
-        comments.text = details.comments.toString()
+        comments.text = details.comments
     }
 
     companion object {
