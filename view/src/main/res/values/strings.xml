@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Reactive MVP</string>
+    <string name="comment">Comments:</string>
+</resources>
