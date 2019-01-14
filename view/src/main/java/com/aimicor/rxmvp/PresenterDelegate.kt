@@ -7,13 +7,17 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.aimicor.rxmvp.presenter.Presenter
 import com.aimicor.rxmvp.view.MainApplication.Companion.appContext
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.direct
 import org.kodein.di.generic.instance
 
-interface PresenterAware {
+interface PresenterAware : Presenter.View {
+    override val scheduler: Scheduler
+        get() = AndroidSchedulers.mainThread()
     val presenterDelegate: PresenterDelegate<out Presenter.View>
 }
 

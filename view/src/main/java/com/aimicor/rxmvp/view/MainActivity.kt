@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.transaction
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.aimicor.rxmvp.DefaultScheduler
 import com.aimicor.rxmvp.PostSummary
 import com.aimicor.rxmvp.PresenterAware
 import com.aimicor.rxmvp.PresenterDelegate.Companion.presenterDelegate
@@ -12,7 +11,7 @@ import com.aimicor.rxmvp.R
 import com.aimicor.rxmvp.presenter.MainView
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MainView, PresenterAware, DefaultScheduler {
+class MainActivity : AppCompatActivity(), MainView, PresenterAware {
     override val presenterDelegate = presenterDelegate<MainView>(this)
     private val adapter = PostItemAdapter(this)
 

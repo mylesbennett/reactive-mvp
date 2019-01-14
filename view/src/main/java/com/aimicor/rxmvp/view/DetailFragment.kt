@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.aimicor.rxmvp.DefaultScheduler
 import com.aimicor.rxmvp.PostDetails
 import com.aimicor.rxmvp.PresenterAware
 import com.aimicor.rxmvp.PresenterDelegate.Companion.presenterDelegate
@@ -13,7 +12,7 @@ import com.aimicor.rxmvp.R
 import com.aimicor.rxmvp.presenter.DetailView
 import kotlinx.android.synthetic.main.fragment_detail.*
 
-class DetailFragment : Fragment(), DetailView, PresenterAware, DefaultScheduler {
+class DetailFragment : Fragment(), DetailView, PresenterAware {
     override val presenterDelegate = presenterDelegate<DetailView>(this)
     override val postId: Int by lazy { arguments!!.getInt(POST_ID_KEY)}
 
