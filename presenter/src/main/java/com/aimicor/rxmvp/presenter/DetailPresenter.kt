@@ -15,14 +15,14 @@ class DetailPresenter(override val kodein: Kodein = com.aimicor.rxmvp.kodein) :
 
     override fun onAttach(view: DetailView) {
         unsubscribeOnDetach(
-            apiService.getPost(view.postId)
+            apiService.getPosts(view.postId)
                 .subscribeOn(Schedulers.io())
                 .map { posts -> posts[0] }
                 .flatMap { post ->
                     Observable.zip<String, String, String, String, PostDetails>(
                         Observable.just(post.title),
                         Observable.just(post.body),
-                        apiService.getUser(post.userId).subscribeOn(Schedulers.io()).map { it[0].username },
+                        apiService.getUsers(post.userId).subscribeOn(Schedulers.io()).map { it[0].username },
                         apiService.getComments(post.id).subscribeOn(Schedulers.io()).map { it.size.toString() },
                         Function4 { title, body, name, comments -> PostDetails(title, body, name, comments) }
                     )

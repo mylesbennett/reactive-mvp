@@ -14,7 +14,7 @@ class MainPresenter(override val kodein: Kodein = com.aimicor.rxmvp.kodein) :
 
     override fun onAttach(view: MainView) {
         unsubscribeOnDetach(
-            apiService.getAllPosts()
+            apiService.getPosts()
                 .subscribeOn(Schedulers.io())
                 .flatMap {list ->
                     Observable.fromIterable(list)

@@ -12,17 +12,14 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("posts/")
-    fun getAllPosts(): Observable<List<Post>>
-
     @GET("posts")
-    fun getPost(@Query("id") postId: Int?): Observable<List<Post>>
+    fun getPosts(@Query("id") postId: Int? = null): Observable<List<Post>>
 
     @GET("users")
-    fun getUser(@Query("id") userId: Int?): Observable<List<User>>
+    fun getUsers(@Query("id") userId: Int? = null): Observable<List<User>>
 
     @GET("comments")
-    fun getComments(@Query("postId") postId: Int?): Observable<List<Comment>>
+    fun getComments(@Query("postId") postId: Int? = null): Observable<List<Comment>>
 
     companion object {
         fun create(): ApiService = Retrofit.Builder()

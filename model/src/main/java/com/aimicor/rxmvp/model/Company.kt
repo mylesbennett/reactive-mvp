@@ -1,7 +1,9 @@
 package com.aimicor.rxmvp.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Company(
-    val bs: String,
-    val catchPhrase: String,
-    val name: String
+    @SerializedName("bs") val bs: String,
+    @SerializedName("catchPhrase") val catchPhrase: String,
+    @SerializedName("name") val name: String
 )

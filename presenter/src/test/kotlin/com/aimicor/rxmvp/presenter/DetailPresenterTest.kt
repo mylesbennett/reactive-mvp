@@ -39,8 +39,8 @@ class DetailPresenterTest {
         RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
         `when`(view.scheduler).thenReturn(Schedulers.io())
         `when`(view.postId).thenReturn(12345)
-        `when`(apiService.getPost(12345)).thenReturn(getPost)
-        `when`(apiService.getUser(91)).thenReturn(getUser)
+        `when`(apiService.getPosts(12345)).thenReturn(getPost)
+        `when`(apiService.getUsers(91)).thenReturn(getUser)
         `when`(apiService.getComments(23)).thenReturn(getComments)
         presenter.attach(view)
     }
