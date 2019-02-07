@@ -2,8 +2,8 @@ package com.aimicor.rxmvp.presenter
 
 import com.aimicor.rxmvp.ApiService
 import com.aimicor.rxmvp.PostSummary
-import com.aimicor.rxmvp.model.Post
 import com.nhaarman.mockito_kotlin.argumentCaptor
+import io.reactivex.Single
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
@@ -20,7 +20,6 @@ class MainPresenterTest {
     private val apiService = mock(ApiService::class.java)
     private val view = mock(MainView::class.java)
     private val presenter = MainPresenter()
-    private val getAllPosts = PublishSubject.create<List<Post>>()
     private val itemClick = PublishSubject.create<Int>()
     private val postListSummaryCaptor = argumentCaptor<List<PostSummary>>()
 
@@ -34,9 +33,7 @@ class MainPresenterTest {
     fun `set up`() {
         RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
         `when`(view.scheduler).thenReturn(Schedulers.io())
-        `when`(apiService.getAllPosts()).thenReturn(getAllPosts)
         `when`(view.itemClick()).thenReturn(itemClick)
-        presenter.attach(view)
     }
 
     @After
@@ -46,7 +43,9 @@ class MainPresenterTest {
 
     @Test
     fun `list returned when posts retrieved`() {
-        getAllPosts.onNext(postList)
+        `when`(apiService.getPosts()).thenReturn(Single.just(postList))
+
+        presenter.attach(view)
 
         verify(view).setPosts(postListSummaryCaptor.capture())
         val list = postListSummaryCaptor.firstValue
@@ -59,6 +58,8 @@ class MainPresenterTest {
 
     @Test
     fun `item detail requested when item click event received`() {
+        presenter.attach(view)
+
         verify(view, never()).showItemDetail(anyInt())
         itemClick.onNext(123)
         verify(view).showItemDetail(123)

@@ -16,7 +16,7 @@ class MainPresenter(override val kodein: Kodein = com.aimicor.rxmvp.kodein) :
         unsubscribeOnDetach(
             apiService.getPosts()
                 .subscribeOn(Schedulers.io())
-                .flatMap {list ->
+                .flatMapObservable {list ->
                     Observable.fromIterable(list)
                         .map { PostSummary(it.id, it.title) }
                         .toList()
